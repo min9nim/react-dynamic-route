@@ -1,0 +1,28 @@
+{
+  "name": "react-dynamic-route",
+  "version": "0.0.1",
+  "description": "Load react component dynamically based on routing path",
+  "keywords": [
+    "react",
+    "asynchronous",
+    "dynamic",
+    "component"
+  ],
+  "main": "src/index.js",
+  "author": "min9nim@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "publish": "npm publish",
+    "reformat": "prettier --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/min9nim/react-async-component.git"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "dependencies": {}
+}
