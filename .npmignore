@@ -6,3 +6,4 @@ yarn.lock
 README.md
 .idea
 .prettierrc
+babel.config.json
