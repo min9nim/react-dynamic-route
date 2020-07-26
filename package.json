@@ -1,6 +1,6 @@
 {
   "name": "react-dynamic-route",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Load react component dynamically based on routing path",
   "keywords": [
     "react",
@@ -12,7 +12,7 @@
   "author": "min9nim@gmail.com",
   "license": "MIT",
   "scripts": {
-    "deploy": "yarn build && npm publish",
+    "deploy": "npm publish",
     "build": "./node_modules/.bin/babel src --out-dir dist",
     "reformat": "prettier --write"
   },
@@ -25,11 +25,11 @@
     "@babel/core": "^7.10.5",
     "@babel/plugin-transform-react-jsx": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
-    "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "prettier": "^2.0.5"
   },
   "dependencies": {
+    "react": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "@babel/polyfill": "^7.10.4",
     "core-js": "^3.6.5"
   }
