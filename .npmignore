@@ -4,3 +4,4 @@ git-hooks
 yarn-error.log
 yarn.lock
 README.md
+.idea
