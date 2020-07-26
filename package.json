@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/min9nim/react-async-component.git"
+    "url": "git+https://github.com/min9nim/react-dynamic-route.git"
   },
   "devDependencies": {
     "prettier": "^2.0.5",
