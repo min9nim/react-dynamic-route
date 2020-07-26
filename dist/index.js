@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.AsyncComponent = AsyncComponent;
 exports.default = DynamicRoute;
 
-var _jsxRuntime = require("custom-jsx-library/jsx-runtime");
+var _jsxRuntime = require("react/jsx-runtime");
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -62,8 +62,8 @@ function AsyncComponent(props) {
 }
 
 function DynamicRoute(props) {
-  return (0, _jsxRuntime.jsx)(_reactRouterDom.BrowserRouter, {
-    children: (0, _jsxRuntime.jsx)(_reactRouterDom.Route, {
+  return /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactRouterDom.BrowserRouter, {
+    children: /*#__PURE__*/(0, _jsxRuntime.jsx)(_reactRouterDom.Route, {
       path: "/",
       render: (_ref) => {
         let {
@@ -72,7 +72,7 @@ function DynamicRoute(props) {
         } = _ref;
         const module = typeof props.loader === 'function' ? props.loader(location.pathname) : Promise.resolve("".concat('./pages' + location.pathname)).then(s => _interopRequireWildcard(require(s))).then(module => module.default);
         const loading = props.loading || 'Loading ' + location.pathname;
-        return (0, _jsxRuntime.jsx)(AsyncComponent, _objectSpread({
+        return /*#__PURE__*/(0, _jsxRuntime.jsx)(AsyncComponent, _objectSpread({
           module: module,
           loading: loading,
           onNotFound: () => {
