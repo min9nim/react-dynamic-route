@@ -12,7 +12,6 @@
   "author": "min9nim@gmail.com",
   "license": "MIT",
   "scripts": {
-    "deploy": "npm publish",
     "build": "./node_modules/.bin/babel src --out-dir dist",
     "reformat": "prettier --write"
   },
