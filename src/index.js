@@ -19,7 +19,9 @@ export function AsyncComponent(props) {
         }
         if (typeof props.onError === 'function') {
           props.onError(e)
+          return
         }
+        throw e
       })
     return () => {
       setComponent(null)
@@ -28,7 +30,7 @@ export function AsyncComponent(props) {
   }, [props])
 
   return Component
-    ? React.createElement(Component, props)
+    ? React.createElement(Component, props.otherProps)
     : props.loading || 'Loading..'
 }
 
@@ -37,15 +39,14 @@ export default function DynamicRoute(props) {
     <BrowserRouter>
       <Route
         path="/"
-        render={({ history, location }) => {
-          console.info('Dynamic Route: ' + location.pathname)
-          const loading = props.loading || 'Loading ' + location.pathname
+        render={({ location }) => {
+          // console.info('Dynamic Route: ' + location.pathname)
           return (
             <AsyncComponent
               component={props.loader(location.pathname)}
               loading={loading}
               onError={props.onError}
-              {...props.otherProps}
+              otherProps={props.otherProps}
             />
           )
         }}
