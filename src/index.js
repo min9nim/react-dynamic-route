@@ -40,11 +40,11 @@ export default function DynamicRoute(props) {
       <Route
         path="/"
         render={({ location }) => {
-          // console.info('Dynamic Route: ' + location.pathname)
+          console.info('Dynamic Route: ' + window.location.pathname, )
           return (
             <AsyncComponent
-              component={props.loader(location.pathname)}
-              loading={loading}
+              component={props.loader(window.location.pathname)}
+              loading={props.loading}
               onError={props.onError}
               otherProps={props.otherProps}
             />
