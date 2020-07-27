@@ -1,6 +1,6 @@
 {
   "name": "react-dynamic-route",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Load react component dynamically based on routing path",
   "keywords": [
     "react",
