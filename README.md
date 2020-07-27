@@ -4,6 +4,13 @@ Load page component at `/src/pages` folder based on `window.location.pathname`
 
 <br>
 
+### Install
+```
+yarn add react-dynamic-route
+```
+
+<br>
+
 ### Basic Usage
 App.js
 ```jsx
@@ -14,7 +21,7 @@ export default function App() {
   return (
       <DynamicRoute
         page={path => import('./pages' + path).then(module => module.default)}
-        loading={<Loading />}
+        loading={<div>Loading..</div>}
         props={{
           someProp1,
           someProp2,
@@ -36,7 +43,7 @@ src/
   App.js
 ```
 
-Then, routes below
+Then, routed like below automatically
 
 | path           | component                   |
 | -------------- | --------------------------- |
