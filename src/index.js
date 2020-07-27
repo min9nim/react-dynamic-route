@@ -31,7 +31,7 @@ export function AsyncComponent(props) {
 
   return Component
     ? React.createElement(Component, props.otherProps)
-    : props.loading || 'Loading..'
+    : props.loading
 }
 
 export default function DynamicRoute(props) {
@@ -39,15 +39,23 @@ export default function DynamicRoute(props) {
     <BrowserRouter>
       <Route
         path="/"
-        render={({ location }) => {
+        render={({ history }) => {
           // console.info('Dynamic Route:  window.location.pathname = ' + window.location.pathname)
           // console.info('Dynamic Route:  location.pathname = ' + location.pathname)
+          const onError = e => {
+            if (e.message.startsWith('Cannot find module') && window.location.pathname !== '/404') {
+              history.push('/404')
+              return
+            }
+            throw e
+          }
+
           return (
             <AsyncComponent
               component={props.page(window.location.pathname)}
-              loading={props.loading}
-              onError={props.onError}
-              otherProps={props.otherProps}
+              loading={props.loading || 'Loading..'}
+              onError={props.onError || onError}
+              otherProps={props.props}
             />
           )
         }}
