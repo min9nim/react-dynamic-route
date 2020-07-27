@@ -6,7 +6,7 @@ export function AsyncComponent(props) {
 
   useEffect(() => {
     let cleanedUp = false
-    props.module
+    props.component
       .then(component => {
         if (cleanedUp) {
           return
@@ -38,19 +38,14 @@ export default function DynamicRoute(props) {
       <Route
         path="/"
         render={({ history, location }) => {
-          const module =
-            typeof props.loader === 'function'
-              ? props.loader(location.pathname)
-              : import('./pages' + location.pathname).then(
-                  module => module.default,
-                )
+          console.info('Dynamic Route: ' + location.pathname)
           const loading = props.loading || 'Loading ' + location.pathname
           return (
             <AsyncComponent
-              module={module}
+              component={props.loader(location.pathname)}
               loading={loading}
               onError={props.onError}
-              {...props}
+              {...props.otherProps}
             />
           )
         }}
