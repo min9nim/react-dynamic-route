@@ -14,15 +14,11 @@ export function AsyncComponent(props) {
         setComponent(() => component)
       })
       .catch(e => {
-        console.info(e)
-        if (cleanedUp) {
-          return
+        if (!cleanedUp) {
+          setComponent(null)
         }
-        setComponent(null)
-        if (e.message.startsWith('Cannot find module')) {
-          if (typeof props.onNotFound === 'function') {
-            props.onNotFound()
-          }
+        if (typeof props.onError === 'function') {
+          props.onError(e)
         }
       })
     return () => {
@@ -53,9 +49,7 @@ export default function DynamicRoute(props) {
             <AsyncComponent
               module={module}
               loading={loading}
-              onNotFound={() => {
-                history.push('/404')
-              }}
+              onError={props.onError}
               {...props}
             />
           )
