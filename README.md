@@ -6,7 +6,7 @@ Load page component at `/src/pages` folder based on `window.location.pathname`
 
 ### Install
 ```
-yarn add react-dynamic-route
+yarn add react-router-dom react-dynamic-route
 ```
 
 <br>
