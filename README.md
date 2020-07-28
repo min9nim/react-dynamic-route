@@ -6,8 +6,14 @@ Load page component at `/src/pages` folder based on `window.location.pathname`
 
 ### Install
 ```
-yarn add react-router-dom react-dynamic-route
+yarn add react-dynamic-route
 ```
+
+<br>
+
+### Prerequisite
+1. `react` & `react-router-dom` is peerDependencies of `react-dynamic-route`
+2. `react` 16.8(or later) version is required as `react-dynamic-route` uses React Hook api
 
 <br>
 
