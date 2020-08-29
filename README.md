@@ -21,10 +21,12 @@ yarn add react-dynamic-route
 App.js
 ```jsx
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import DynamicRoute from 'react-dynamic-route'
 
 export default function App() {
   return (
+    <BrowserRouter>
       <DynamicRoute
         page={path => import('./pages' + path).then(module => module.default)}
         loading={<div>Loading..</div>}
@@ -33,6 +35,7 @@ export default function App() {
           someProp2,  // `someProp1` and `someProp2` are transfered to `module.dedault` above finally
         }}
       />  
+    </BrowserRouter>
   )
 }
 ```
