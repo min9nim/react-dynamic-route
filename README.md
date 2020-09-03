@@ -60,3 +60,37 @@ Then, routed like below automatically
 | /login/sign-up | /src/pages/login/sign-up.js |
 | /my-info       | /src/pages/my-info.js       |
 | /blablabla     | /src/pages/404.js           |
+
+
+<br>
+
+### usage of dynamic path
+
+Also you can use dynamic path like below
+
+```jsx
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import DynamicRoute from 'react-dynamic-route'
+import Report from 'pages/report'
+
+export default function App() {
+  return (
+    <BrowserRouter>
+       <Switch>
+          <Route path="/report/:date" render={props => <Report {...props} />} />
+          <DynamicRoute
+            page={path => import('./pages' + path).then(module => module.default)}
+            loading={<div>Loading..</div>}
+            props={{
+              someProp1,
+              someProp2,  // `someProp1` and `someProp2` are transfered to `module.dedault` above finally
+            }}
+          />      
+      </Switch>
+    </BrowserRouter>
+  )
+}
+```
+
+
