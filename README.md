@@ -66,7 +66,7 @@ Then, routed like below automatically
 
 ### Recipe of dynamic path
 
-Also you can use dynamic path like below
+You can also use dynamic path like below
 
 ```jsx
 import React from 'react'
