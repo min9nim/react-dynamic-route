@@ -64,7 +64,7 @@ Then, routed like below automatically
 
 <br>
 
-### usage of dynamic path
+### Recipe of dynamic path
 
 Also you can use dynamic path like below
 
