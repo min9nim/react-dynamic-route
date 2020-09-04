@@ -84,7 +84,7 @@ export default function App() {
             loading={<div>Loading..</div>}
             props={{
               someProp1,
-              someProp2,  // `someProp1` and `someProp2` are transfered to `module.dedault` above finally
+              someProp2,  // `someProp1` and `someProp2` are transfered to `module.default` above finally
             }}
           />      
       </Switch>
