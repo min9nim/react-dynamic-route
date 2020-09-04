@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 export function AsyncComponent(props) {
   const [Component, setComponent] = useState(null)
@@ -36,30 +36,29 @@ export function AsyncComponent(props) {
 
 export default function DynamicRoute(props) {
   return (
-    <BrowserRouter>
-      <Route
-        path="/"
-        render={({ history }) => {
-          // console.info('Dynamic Route:  window.location.pathname = ' + window.location.pathname)
-          // console.info('Dynamic Route:  location.pathname = ' + location.pathname)
-          const onError = e => {
-            if (e.message.startsWith('Cannot find module') && window.location.pathname !== '/404') {
-              history.push('/404')
-              return
-            }
-            throw e
+    <Route
+      path="/"
+      render={({ history }) => {
+        const onError = e => {
+          if (
+            e.message.startsWith('Cannot find module') &&
+            window.location.pathname !== '/404'
+          ) {
+            history.push('/404')
+            return
           }
+          throw e
+        }
 
-          return (
-            <AsyncComponent
-              component={props.page(window.location.pathname)}
-              loading={props.loading || 'Loading..'}
-              onError={props.onError || onError}
-              otherProps={props.props}
-            />
-          )
-        }}
-      />
-    </BrowserRouter>
+        return (
+          <AsyncComponent
+            component={props.page(window.location.pathname)}
+            loading={props.loading || 'Loading..'}
+            onError={props.onError || onError}
+            otherProps={props.props}
+          />
+        )
+      }}
+    />
   )
 }
