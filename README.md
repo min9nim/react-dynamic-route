@@ -21,10 +21,12 @@ yarn add react-dynamic-route
 App.js
 ```jsx
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useHistory } from 'react-router-dom'
 import DynamicRoute from 'react-dynamic-route'
 
 export default function App() {
+  const history = useHistory()
+
   return (
     <BrowserRouter>
       <DynamicRoute
