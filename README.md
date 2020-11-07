@@ -21,12 +21,10 @@ yarn add react-dynamic-route
 App.js
 ```jsx
 import React from 'react'
-import { BrowserRouter, useHistory } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import DynamicRoute from 'react-dynamic-route'
 
 export default function App() {
-  const history = useHistory()
-
   return (
     <BrowserRouter>
       <DynamicRoute
@@ -36,7 +34,7 @@ export default function App() {
           someProp1,
           someProp2,  // `someProp1` and `someProp2` are transfered to `module.dedault` above finally
         }}
-        onError={e => {
+        onError={(e, history) => {
           if (
             e.message.startsWith('Cannot find module') &&
             window.location.pathname !== '/404'
