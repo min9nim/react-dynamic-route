@@ -18,7 +18,7 @@ export function AsyncComponent(props) {
           setComponent(null)
         }
         if (typeof props.onError === 'function') {
-          props.onError(e)
+          props.onError(e, props.history)
           return
         }
         throw e
@@ -57,6 +57,7 @@ export default function DynamicRoute(props) {
             loading={props.loading || 'Loading..'}
             onError={props.onError || onError}
             otherProps={props.props}
+            history={history}
           />
         )
       }}
