@@ -34,7 +34,17 @@ export default function App() {
           someProp1,
           someProp2,  // `someProp1` and `someProp2` are transfered to `module.dedault` above finally
         }}
-      />  
+        onError={e => {
+          if (
+            e.message.startsWith('Cannot find module') &&
+            window.location.pathname !== '/404'
+          ) {
+            history.push('/404')
+            return
+          }
+          throw e
+        }}
+      />
     </BrowserRouter>
   )
 }
@@ -82,15 +92,9 @@ export default function App() {
           <DynamicRoute
             page={path => import('./pages' + path).then(module => module.default)}
             loading={<div>Loading..</div>}
-            props={{
-              someProp1,
-              someProp2,  // `someProp1` and `someProp2` are transfered to `module.default` above finally
-            }}
           />      
       </Switch>
     </BrowserRouter>
   )
 }
 ```
-
-
