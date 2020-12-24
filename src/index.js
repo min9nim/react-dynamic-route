@@ -38,29 +38,16 @@ export default function DynamicRoute(props) {
   return (
     <Route
       path="/"
-      render={({ history }) => {
-        const onError = e => {
-          if (
-            e.message.startsWith('Cannot find module') &&
-            window.location.pathname !== '/404'
-          ) {
-            history.push('/404')
-            return
-          }
-          throw e
-        }
-
-        return (
-          <AsyncComponent
-            path={window.location.pathname}
-            component={props.page(window.location.pathname)}
-            loading={props.loading || 'Loading..'}
-            onError={props.onError || onError}
-            otherProps={props.props}
-            history={history}
-          />
-        )
-      }}
+      render={({ history }) => (
+        <AsyncComponent
+          path={window.location.pathname}
+          component={props.page(window.location.pathname)}
+          loading={props.loading || 'Loading..'}
+          onError={props.onError}
+          otherProps={props.props}
+          history={history}
+        />
+      )}
     />
   )
 }

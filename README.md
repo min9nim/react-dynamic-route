@@ -36,7 +36,7 @@ export default function App() {
         }}
         onError={(e, history) => {
           if (
-            e.message.startsWith('Cannot find module') &&
+            /not find module/.test(e.message) &&
             window.location.pathname !== '/404'
           ) {
             history.push('/404')
@@ -74,7 +74,50 @@ Then, routed like below automatically
 
 <br>
 
-### Recipe of dynamic path
+### Recipe
+
+#### Handling `not find module` error
+
+load 404 page keeping URL
+
+```js
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import DynamicRoute from 'react-dynamic-route'
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <DynamicRoute
+        page={path =>
+          import('./pages' + path)
+            .then(module => module.default)
+            .catch(e => {
+              if (/not find module/.test(e.message)) {
+                return import('./pages/404').then(module => module.default)
+              }
+              throw e
+            })
+        }
+        loading={<div>Loading..</div>}
+        props={{
+          someProp1,
+          someProp2,  // `someProp1` and `someProp2` are transfered to `module.dedault` above finally
+        }}
+        onError={(e, history) => {
+          if (/Loading chunk \d+ failed/.test(e.message)) {
+            window.location.reload()
+            return
+          }
+          throw e
+        }}
+      />
+    </BrowserRouter>
+  )
+}
+```
+
+#### dynamic path
 
 You can also use dynamic path like below
 
