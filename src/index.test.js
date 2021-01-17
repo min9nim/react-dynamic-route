@@ -37,7 +37,7 @@ const loader = cond([
 ])
 
 describe('Routes', () => {
-  test('/aa 로 접근하면 PageA 가 로드되어야 한다', async () => {
+  test('Should load PageA when /aa path accessed', async () => {
     renderWithRouter(
       <DynamicRoute
         page={path => {
@@ -61,7 +61,7 @@ describe('Routes', () => {
     })
   })
 
-  test('/bb 로 접근하면 PageB 가 로드되어야 한다', async () => {
+  test('Should load PageB when /bb path accessed', async () => {
     renderWithRouter(
       <DynamicRoute
         page={path => {
@@ -85,7 +85,7 @@ describe('Routes', () => {
     })
   })
 
-  test('/blabla 로 접근하면 404.js 가 로드되어야 한다', async () => {
+  test('Should load 404.js when access /blabla path', async () => {
     renderWithRouter(
       <DynamicRoute
         page={path => {
@@ -109,7 +109,7 @@ describe('Routes', () => {
     })
   })
 
-  test('Loading chunk d+ failed', async () => {
+  test('Should reload page when Loading chunk d+ failed', async () => {
     const reload = jest.fn()
     renderWithRouter(
       <DynamicRoute
@@ -139,5 +139,13 @@ describe('Routes', () => {
     await waitFor(() => {
       expect(reload).toHaveBeenCalledTimes(1)
     })
+  })
+
+  test('Should be loaded loading component when pending', () => {
+
+  })
+
+  test('Should not rerender when same path', () => {
+
   })
 })
