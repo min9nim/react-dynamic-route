@@ -40,9 +40,9 @@ export default function DynamicRoute(props) {
       path="/"
       render={({ history }) => (
         <AsyncComponent
-          path={window.location.pathname}
-          search={window.location.search}
-          component={props.page(window.location.pathname)}
+          path={history.location.pathname}
+          search={history.location.search}
+          component={props.page(history.location.pathname)}
           loading={props.loading || 'Loading..'}
           onError={props.onError}
           otherProps={props.props}
