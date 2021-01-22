@@ -27,7 +27,7 @@ export function AsyncComponent(props) {
       setComponent(null)
       cleanedUp = true
     }
-  }, [props.path])
+  }, [props.path, props.search])
 
   return Component
     ? React.createElement(Component, props.otherProps)
@@ -41,6 +41,7 @@ export default function DynamicRoute(props) {
       render={({ history }) => (
         <AsyncComponent
           path={window.location.pathname}
+          search={window.location.search}
           component={props.page(window.location.pathname)}
           loading={props.loading || 'Loading..'}
           onError={props.onError}
