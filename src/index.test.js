@@ -1,12 +1,25 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useHistory } from 'react-router-dom'
 import { always, cond, equals, T } from 'ramda'
 import DynamicRoute from './index'
 import "regenerator-runtime/runtime.js"
 import '@testing-library/jest-dom/extend-expect'
+import userEvent from '@testing-library/user-event'
 
-const PageA = () => <div>aa</div>
+const PageA = ({ callback }) => {
+  const history = useHistory()
+  useEffect(() => {
+    callback?.()
+  })
+  return (
+    <div>
+      aa <button onClick={() => history.push('/bb')}>go bb</button>
+      <button onClick={() => history.push('/aa')}>go aa</button>
+      <button onClick={() => history.push('/aa?xx=1')}>go aa with search param</button>
+    </div>
+  )
+}
 const PageB = () => <div>bb</div>
 const NotFound = () => <div>404</div>
 
@@ -145,7 +158,89 @@ describe('Routes', () => {
 
   })
 
-  test('Should not rerender when same path', () => {
+  test('should be rendered once when same pathname', async () => {
+    const reload = jest.fn()
+    const callback = jest.fn()
+    renderWithRouter(
+      <DynamicRoute
+        page={path =>
+          loader('./pages' + path)
+            .then(module => module.default)
+            .catch(e => {
+              if (/not find module/.test(e.message)) {
+                return loader('./pages/404').then(module => module.default)
+              }
+              throw e
+            })
+        }
+        loading={<div>loading</div>}
+        onError={(e, history) => {
+          if (/Loading chunk \d+ failed/.test(e.message)) {
+            // https://madup.atlassian.net/browse/MA-644
+            reload()
+            return
+          }
+          throw e
+        }}
+        props={{callback}}
+      />,
+      { route: '/aa' },
+    )
 
+    await waitFor(() => {
+      const dom = screen.getByText('aa')
+      expect(dom).toBeInTheDocument()
+      expect(callback).toHaveBeenCalledTimes(1)
+    })
+
+    userEvent.click(screen.getByText('go aa'))
+
+    await waitFor(() => {
+      expect(screen.getByText('aa')).toBeInTheDocument()
+      expect(callback).toHaveBeenCalledTimes(2)
+    })
+  })
+
+  test('should be re rendered when different search param', async () => {
+    const reload = jest.fn()
+    const callback = jest.fn()
+    renderWithRouter(
+      <DynamicRoute
+        page={path =>
+          loader('./pages' + path)
+            .then(module => module.default)
+            .catch(e => {
+              if (/not find module/.test(e.message)) {
+                return loader('./pages/404').then(module => module.default)
+              }
+              throw e
+            })
+        }
+        loading={<div>loading</div>}
+        onError={(e, history) => {
+          if (/Loading chunk \d+ failed/.test(e.message)) {
+            // https://madup.atlassian.net/browse/MA-644
+            reload()
+            return
+          }
+          throw e
+        }}
+        props={{callback}}
+      />,
+      { route: '/aa' },
+    )
+
+    await waitFor(() => {
+      const dom = screen.getByText('aa')
+      expect(dom).toBeInTheDocument()
+      expect(callback).toHaveBeenCalledTimes(1)
+    })
+
+    userEvent.click(screen.getByText('go aa with search param'))
+
+    await waitFor(() => {
+      expect(screen.getByText('aa')).toBeInTheDocument()
+      expect(callback).toHaveBeenCalledTimes(3)
+    })
   })
 })
