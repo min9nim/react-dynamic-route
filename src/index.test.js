@@ -1,12 +1,14 @@
-import React, {useEffect} from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
-import { BrowserRouter, useHistory } from 'react-router-dom'
-import { always, cond, equals, T } from 'ramda'
-import DynamicRoute from './index'
+import React from "react"
+import { useEffect } from "react"
+import { render, screen, waitFor } from "@testing-library/react"
+import { BrowserRouter, useHistory } from "react-router-dom"
+import { always, cond, equals, T } from "ramda"
+import DynamicRoute from "./index"
 import "regenerator-runtime/runtime.js"
-import '@testing-library/jest-dom/extend-expect'
-import userEvent from '@testing-library/user-event'
+import "@testing-library/jest-dom/extend-expect"
+import userEvent from "@testing-library/user-event"
 
+import * as index from "./index"
 const PageA = ({ callback }) => {
   const history = useHistory()
   useEffect(() => {
@@ -243,4 +245,55 @@ describe('Routes', () => {
       expect(callback).toHaveBeenCalledTimes(3)
     })
   })
+})
+
+// @ponicode
+describe("index.AsyncComponent", () => {
+    test("0", () => {
+        let callFunction = () => {
+            index.AsyncComponent({ component: false, onError: "callback detected, not supported yet", history: "http://example.com/showcalendar.html?token=CKF50YzIHxCTKMAg", path: "C:\\\\path\\to\\file.ext", search: "UPDATE Projects SET pname = %s WHERE pid = %s", loading: "https://api.telegram.org/bot", otherProps: 56784 })
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("1", () => {
+        let callFunction = () => {
+            index.AsyncComponent({ component: true, onError: false, history: "http://example.com/showcalendar.html?token=CKF50YzIHxCTKMAg", path: "/path/to/file", search: "UPDATE Projects SET pname = %s WHERE pid = %s", loading: "https://croplands.org/app/a/confirm?t=", otherProps: 12345 })
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("2", () => {
+        let callFunction = () => {
+            index.AsyncComponent({ component: true, onError: true, history: "www.google.com", path: "C:\\\\path\\to\\file.ext", search: "DELETE FROM Projects WHERE pid = %s", loading: "https://api.telegram.org/", otherProps: "a1969970175" })
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("3", () => {
+        let callFunction = () => {
+            index.AsyncComponent({ component: true, onError: false, history: "http://example.com/showcalendar.html?token=CKF50YzIHxCTKMAg", path: "path/to/file.ext", search: "UNLOCK TABLES;", loading: "Www.GooGle.com", otherProps: 12 })
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("4", () => {
+        let callFunction = () => {
+            index.AsyncComponent({ component: false, onError: "callback detected, not supported yet", history: "https://", path: "path/to/folder/", search: "SELECT * FROM Movies WHERE Title=’Jurassic Park’ AND Director='Steven Spielberg';", loading: "https://twitter.com/path?abc", otherProps: 56784 })
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("5", () => {
+        let callFunction = () => {
+            index.AsyncComponent(undefined)
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
 })
